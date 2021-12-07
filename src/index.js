@@ -1,17 +1,39 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+//import App from "./App";
+import { Provider } from "react-redux";
+import { getStore } from "./store";
+import Users from "./Users";
+import Hello from "./App";
 
+const store = getStore();
+
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      name: "react",
+      users: []
+    };
+  }
+  render() {
+    return (
+      <Provider store={store}>
+        <div>
+          <Hello name={this.state.name} />
+          <h1>CRUD</h1>
+          <Users users={this.state.users} />
+        </div>
+      </Provider>
+    );
+  }
+}
+
+//ReactDOM.render(<App />, document.getElementById("root"));
 ReactDOM.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
